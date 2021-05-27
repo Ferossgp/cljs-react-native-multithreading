@@ -1,0 +1,8 @@
+export function main(){
+  "worklet";
+  var shadow$umd$export = null;
+  
+  //CLJS-HERE
+
+  return shadow$umd$export.math();
+}
