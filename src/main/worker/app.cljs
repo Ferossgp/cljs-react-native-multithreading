@@ -6,7 +6,7 @@
 (defn- clojure-code []
   (merge {:a 1} {:b 2}))
 
-(defn ^:export math [cb]
+(defn ^:export math [number]
   (prn "I DO EXPENSIVE CALL IN WORKLET")
-  #js {:result (+ 2 2)
+  #js {:result (+ 2 number)
        :hello (clj->js (clojure-code))})
