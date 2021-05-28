@@ -1,8 +1,15 @@
-export function main(){
+const ___WORKLET_BUNDLE___ = function(method, args){
   "worklet";
-  var shadow$umd$export = null;
+  var shadow$worklet$export = null;
   
   //CLJS-HERE
 
-  return shadow$umd$export.math();
+  return shadow$worklet$export[method](args);
+}
+
+export function main(method, args){
+  return spawnThread(function(){
+    "worklet";
+    return ___WORKLET_BUNDLE___(method, args)
+  })
 }

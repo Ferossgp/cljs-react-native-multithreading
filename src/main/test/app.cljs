@@ -2,7 +2,7 @@
   (:require
     [shadow.react-native :refer (render-root)]
     ["react-native" :as rn]
-    ["react-native-reanimated"]
+    ["react-native-reanimated" :refer [runOnJS]]
     ["react" :as react]
     [reagent.core :as r]
 ))
@@ -20,16 +20,17 @@
           (clj->js)
           (rn/StyleSheet.create)))
 
-(defonce spawn-thread ^js js/spawnThread)
-
 (defonce worker ^js (js/require "../worker/index.js"))
+
+(defn cb [x]
+  (prn "Callback to main thread " x))
 
 (defn root []
   [:> rn/View {:style (.-container styles)}
    [:> rn/Text {:style (.-title styles)} "Hello!"]
-   [:> rn/Pressable {:on-press #(-> (spawn-thread (.-main worker))
-                                    (.then (fn [response] (prn response) (js/alert (str "Response: " (.-result response)))))
-                                    (.catch (fn [err] (prn err))))}
+   [:> rn/Pressable {:on-press #(do (-> (.main worker "math" nil)
+                                        (.then (fn [response] (prn response) (js/alert (str "Response: " (.-result response)))))
+                                        (.catch (fn [err] (prn err)))))}
     [:> rn/Text "Expensive async 2+2 =>"]]
    ])
 

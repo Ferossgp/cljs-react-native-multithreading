@@ -116,7 +116,6 @@
         wrapper-rc
         (io/resource "shadow/worklets_export.txt")
 
-        ;; based on https://github.com/umdjs/umd/blob/master/templates/returnExports.js
         [prepend append]
         (-> wrapper-rc
             (slurp)
@@ -138,7 +137,7 @@
            {:entries '[shadow.umd-helper]
             :depends-on #{}
             :prepend prepend
-            :append-js "\nshadow$umd$export = shadow.umd_helper.get_exports();\n"
+            :append-js "\nshadow$worklet$export = shadow.umd_helper.get_exports();\n"
             :append (str/trim append)}}))))
 
 (defn check-exports!
