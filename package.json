@@ -4,8 +4,6 @@
   "private": true,
   "scripts": {
     "build-worker:cljs": "shadow-cljs release worker",
-    "build-worker:workletize": "babel --config-file ./babel.config.js ./react-native/target/worker/index.js --out-dir ./react-native/worker/",
-    "build-worker": "yarn build-worker:cljs && yarn build-worker:workletize",
     "start:app-cljs": "shadow-cljs watch app",
     "start:metro": "yarn --cwd react-native start",
     "ios": "yarn --cwd react-native ios"

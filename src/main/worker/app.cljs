@@ -1,5 +1,4 @@
-(ns worker.app
-  (:require ["react-native-reanimated" :refer [runOnJS]]))
+(ns worker.app)
 
 (defn ^:export init []
   (prn "I RUN IN WORKLET!"))
