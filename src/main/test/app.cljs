@@ -28,6 +28,12 @@
 
 (def math (.main worker "math"))
 
+(defonce store (atom nil))
+(defn writer [store data]
+  (reset! store data))
+
+(.initStore worker store writer)
+
 (defn root []
   (r/with-let [number (r/atom 0)]
     [:> rn/View {:style (.-container styles)}
@@ -37,7 +43,10 @@
                        :keyboard-type "numeric"
                        :on-change-text #(reset! number %)}]
      [:> rn/Pressable {:on-press #(-> (math (js/parseInt @number))
-                                      (.then (fn [^js response] (prn response) (prn "THE a is=" (.getTheA worker)) (js/alert (str "Response: " (.-result response)))))
+                                      (.then (fn [^js response]
+                                               (prn response)
+                                               (prn "Store: " @store)
+                                               (js/alert (str "Response: " (.-result response)))))
                                       (.catch (fn [err] (prn err))))}
       [:> rn/Text (str "Expensive async 2+" @number " =>")]]]))
 

@@ -8,6 +8,6 @@
 
 (defn ^:export math [number]
   (prn "I DO EXPENSIVE CALL IN WORKLET" number)
-  ((js/runOnJS js/callGlobal) (+ 10 number))
+  (js/writeFromUI #js {:passed-number number})
   #js {:result (+ 2 number)
        :hello (clj->js (clojure-code))})

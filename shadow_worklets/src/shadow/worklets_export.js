@@ -1,10 +1,23 @@
 import { runOnJS } from "react-native-reanimated";
 import "react-native-multithreading";
 
-var a;
+var store;
+var writer;
+var reader;
 
-function callGlobal(argument) {
-  a = argument;
+function writeToStore(argument) {
+  writer(store, argument)
+}
+
+function writeFromUI(data) {
+  "worklet";
+  runOnJS(writeToStore)(data)
+}
+
+export function initStore(s, w, r) {
+  store = s;
+  writer = w;
+  reader = r;
 }
 
 const ___WORKLET_BUNDLE___ = function(method, args){
@@ -14,10 +27,6 @@ const ___WORKLET_BUNDLE___ = function(method, args){
   //CLJS-HERE
 
   return shadow$worklet$export[method](args);
-}
-
-export function getTheA(){
-  return a;
 }
 
 export function main(method){
