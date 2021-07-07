@@ -114,7 +114,7 @@
         {:output-to output-to}
 
         wrapper-rc
-        (io/resource "shadow/worklets_export.txt")
+        (io/resource "shadow/worklets_export.js")
 
         [prepend append]
         (-> wrapper-rc

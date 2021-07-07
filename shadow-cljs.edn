@@ -5,6 +5,7 @@
   {:target :react-native
    :init-fn test.app/init
    :output-dir "react-native/app"
+   :compiler-options {:output-feature-set :es5}
    :js-options {:js-package-dirs ["react-native/node_modules"]}}
   :worker
   {:target shadow.worklet
@@ -13,4 +14,4 @@
    :js-options {:js-package-dirs ["react-native/node_modules"]}
    :exports {:math worker.app/math}
    :compiler-options {:optimizations :advanced
-                      :output-feature-set :es6}}}}
+                      :output-feature-set :es5}}}}

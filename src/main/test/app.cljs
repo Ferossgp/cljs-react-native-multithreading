@@ -2,7 +2,7 @@
   (:require
    [shadow.react-native :refer (render-root)]
    ["react-native" :as rn]
-   ["react-native-reanimated" :refer [runOnJS]]
+   ["react-native-reanimated"]
    ["react" :as react]
    [reagent.core :as r]))
 
@@ -26,8 +26,7 @@
 
 (defonce worker ^js (js/require "../worker/index.js"))
 
-(defn cb [x]
-  (prn "Callback to main thread " x))
+(def math (.main worker "math"))
 
 (defn root []
   (r/with-let [number (r/atom 0)]
@@ -37,8 +36,8 @@
                        :style (.-input styles)
                        :keyboard-type "numeric"
                        :on-change-text #(reset! number %)}]
-     [:> rn/Pressable {:on-press #(-> (.main worker "math" (js/parseInt @number))
-                                      (.then (fn [response] (prn response) (js/alert (str "Response: " (.-result response)))))
+     [:> rn/Pressable {:on-press #(-> (math (js/parseInt @number))
+                                      (.then (fn [^js response] (prn response) (prn "THE a is=" (.getTheA worker)) (js/alert (str "Response: " (.-result response)))))
                                       (.catch (fn [err] (prn err))))}
       [:> rn/Text (str "Expensive async 2+" @number " =>")]]]))
 

@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "build-worker:cljs": "shadow-cljs release worker",
+    "start:worker": "shadow-cljs watch worker",
     "start:app-cljs": "shadow-cljs watch app",
     "start:metro": "yarn --cwd react-native start",
     "ios": "yarn --cwd react-native ios"
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "react-native-reanimated": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
